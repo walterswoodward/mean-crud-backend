@@ -1,3 +1,4 @@
+// For official notes on mongooseks deprecation messages: https://mongoosejs.com/docs/deprecations.html
 let express = require('express'),
    path = require('path'),
    mongoose = require('mongoose'),
@@ -8,7 +9,8 @@ let express = require('express'),
 // Connecting with mongo db
 mongoose.Promise = global.Promise;
 mongoose.connect(dbConfig.db, {
-   useNewUrlParser: true
+   useNewUrlParser: true,
+   useUnifiedTopology: true // The useUnifiedTopology option removes support for several connection options that are no longer relevant with the new topology engine
 }).then(() => {
       console.log('Database sucessfully connected')
    },
@@ -18,7 +20,7 @@ mongoose.connect(dbConfig.db, {
 )
 
 // Setting up port with express js
-const employeeRoute = require('../backend/routes/employee.route')
+const employeeRoute = require('./routes/employee.route.js')
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -32,6 +34,8 @@ app.use('/api', employeeRoute)
 // Create port
 const port = process.env.PORT || 4000;
 const server = app.listen(port, () => {
+   // Note that as of 02-22-2021, this warning is being thrown, but can be safely ignored:
+   // Warning: Accessing non-existent property 'MongoError' of module exports inside circular dependency
   console.log('Connected to port ' + port)
 })
 
