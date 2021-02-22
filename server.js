@@ -5,6 +5,7 @@ let express = require('express'),
    cors = require('cors'),
    bodyParser = require('body-parser'),
    dbConfig = require('./database/db');
+   createError = require('http-errors');
 
 // Connecting with mongo db
 mongoose.Promise = global.Promise;
@@ -37,6 +38,10 @@ const server = app.listen(port, () => {
    // Note that as of 02-22-2021, this warning is being thrown, but can be safely ignored:
    // Warning: Accessing non-existent property 'MongoError' of module exports inside circular dependency
   console.log('Connected to port ' + port)
+})
+
+app.get('/', function(req, res) {
+   res.send('Hi from home')
 })
 
 // Find 404 and hand over to error handler
