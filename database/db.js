@@ -1,3 +1,3 @@
 module.exports = {
-    db: 'mongodb://localhost:27017/meandb'
-  };
+  db: 'mongodb+srv://' + process.env.DB_USER + ':' + process.env.DB_PASSWORD + '@cluster0.y7yyf.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+};

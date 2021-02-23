@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 // For official notes on mongooseks deprecation messages: https://mongoosejs.com/docs/deprecations.html
 let express = require('express'),
    path = require('path'),
@@ -40,7 +42,7 @@ const server = app.listen(port, () => {
   console.log('Connected to port ' + port)
 })
 
-app.get('/', function(req, res) {
+app.get('/', (req, res) => {
    res.send('Hi from home')
 })
 
